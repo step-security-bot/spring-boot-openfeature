@@ -9,6 +9,11 @@
     <artifactId>spring-boot-openfeature</artifactId>
     <version>${revision}</version>
     <packaging>pom</packaging>
+
+    <name>Spring Boot OpenFeature</name>
+    <description>Spring Boot OpenFeature</description>
+    <url>https://github.com/iromu/spring-boot-openfeature/</url>
+
     <modules>
         <module>spring-boot-starter-openfeature</module>
         <module>spring-boot-openfeature-dependencies</module>
@@ -90,4 +95,11 @@
             </modules>
         </profile>
     </profiles>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/iromu/spring-boot-openfeature</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>
