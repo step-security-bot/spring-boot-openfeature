@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.iromu.openfeature</groupId>
+    <artifactId>spring-boot-openfeature</artifactId>
+    <version>${revision}</version>
+    <packaging>pom</packaging>
+    <modules>
+        <module>spring-boot-starter-openfeature</module>
+        <module>spring-boot-openfeature-dependencies</module>
+        <module>spring-boot-openfeature-autoconfigure</module>
+    </modules>
+
+    <properties>
+        <revision>0.0.1-SNAPSHOT</revision>
+        <java.version>17</java.version>
+
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <spring-boot.version>3.4.2</spring-boot.version>
+        <io.spring.javaformat.version>0.0.43</io.spring.javaformat.version>
+
+        <unleash.version>0.1.0-alpha</unleash.version>
+        <sdk.version>1.14.0</sdk.version>
+        <env-var.version>0.0.7</env-var.version>
+        <multiprovider.version>0.0.1</multiprovider.version>
+        <spring-boot-starter-openfeature.version>${revision}</spring-boot-starter-openfeature.version>
+        <jsonlogic-eval-provider.version>1.1.1</jsonlogic-eval-provider.version>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>io.spring.javaformat</groupId>
+                <artifactId>spring-javaformat-maven-plugin</artifactId>
+                <version>${io.spring.javaformat.version}</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <inherited>true</inherited>
+                        <goals>
+                            <goal>apply</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <configuration>
+                    <updatePomFile>true</updatePomFile>
+                    <flattenMode>oss</flattenMode>
+                    <embedBuildProfileDependencies>true</embedBuildProfileDependencies>
+                    <pomElements>
+                        <distributionManagement>remove</distributionManagement>
+                        <repositories>remove</repositories>
+                        <dependencyManagement>remove</dependencyManagement>
+                    </pomElements>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>flatten</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>flatten-clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    <profiles>
+        <profile>
+            <id>examples</id>
+            <modules>
+                <module>examples</module>
+            </modules>
+        </profile>
+    </profiles>
+</project>
