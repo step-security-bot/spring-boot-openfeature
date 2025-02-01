@@ -27,7 +27,9 @@ jobs:
   publish-snapshot:
     needs: build
     runs-on: ubuntu-latest
-
+    permissions:
+      contents: read
+      packages: write
     steps:
       - uses: actions/checkout@v4
 
@@ -36,9 +38,10 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
+          server-id: github
           cache: 'maven'
 
-      - name: Publish SNAPSHOT version to GitHub Packages)
+      - name: Publish SNAPSHOT version to GitHub Packages
         run: mvn -B --no-transfer-progress deploy -DskipTests
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

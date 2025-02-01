@@ -6,6 +6,7 @@ import dev.openfeature.sdk.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+
 /**
  * @author Ivan Rodriguez
  */

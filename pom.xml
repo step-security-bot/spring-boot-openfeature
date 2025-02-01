@@ -98,7 +98,7 @@
     <distributionManagement>
         <snapshotRepository>
             <id>github</id>
-            <name>GitHub Packages</name>
+            <name>GitHub iromu Apache Maven Packages</name>
             <url>https://maven.pkg.github.com/iromu/spring-boot-openfeature</url>
         </snapshotRepository>
     </distributionManagement>
