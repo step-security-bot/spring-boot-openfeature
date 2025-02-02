@@ -55,7 +55,6 @@
         <sdk.version>1.14.0</sdk.version>
         <env-var.version>0.0.7</env-var.version>
         <multiprovider.version>0.0.1</multiprovider.version>
-        <spring-boot-starter-openfeature.version>${revision}</spring-boot-starter-openfeature.version>
         <jsonlogic-eval-provider.version>1.1.1</jsonlogic-eval-provider.version>
     </properties>
 
@@ -78,6 +77,11 @@
             </plugins>
         </pluginManagement>
         <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>2.18.0</version>
+            </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
