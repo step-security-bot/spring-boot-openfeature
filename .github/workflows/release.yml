@@ -37,6 +37,8 @@ jobs:
           
           git tag v$VERSION
           git push origin v$VERSION
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Increment version and append -SNAPSHOT
         run: |
@@ -45,3 +47,5 @@ jobs:
           ./mvnw -B --no-transfer-progress versions:commit
           git commit -m "Increment version to ${NEXT_SNAPSHOT} [skip-ci]"
           git push origin
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
