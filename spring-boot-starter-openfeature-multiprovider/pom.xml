@@ -10,7 +10,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>spring-boot-starter-openfeature</artifactId>
+    <artifactId>spring-boot-starter-openfeature-multiprovider</artifactId>
     <packaging>pom</packaging>
 
     <dependencyManagement>
@@ -30,6 +30,10 @@
             <groupId>org.iromu.openfeature</groupId>
             <artifactId>spring-boot-openfeature-autoconfigure</artifactId>
             <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>dev.openfeature.contrib.providers</groupId>
+            <artifactId>multiprovider</artifactId>
         </dependency>
     </dependencies>
 </project>

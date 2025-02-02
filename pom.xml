@@ -39,6 +39,9 @@
         <module>spring-boot-openfeature-dependencies</module>
         <module>spring-boot-openfeature-autoconfigure</module>
         <module>spring-boot-starter-openfeature-unleash</module>
+        <module>spring-boot-starter-openfeature-envvar</module>
+        <module>spring-boot-starter-openfeature-multiprovider</module>
+        <module>spring-boot-starter-openfeature-jsonlogic</module>
     </modules>
 
     <properties>
