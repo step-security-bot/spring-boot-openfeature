@@ -1,29 +1,20 @@
 package org.iromu.openfeature.boot.autoconfigure.unleash;
 
 import io.getunleash.CustomHttpHeadersProvider;
-import io.getunleash.UnleashContextProvider;
-import io.getunleash.UnleashException;
-import io.getunleash.event.UnleashSubscriber;
-import io.getunleash.lang.Nullable;
-import io.getunleash.repository.ToggleBootstrapProvider;
-import io.getunleash.strategy.Strategy;
-import io.getunleash.util.MetricSenderFactory;
-import io.getunleash.util.UnleashFeatureFetcherFactory;
-import io.getunleash.util.UnleashScheduledExecutor;
 import io.getunleash.util.UnleashURLs;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.core.io.Resource;
 
-import java.net.Proxy;
 import java.net.URI;
 import java.time.Duration;
 import java.util.Map;
-import java.util.function.Consumer;
 
 import static org.iromu.openfeature.boot.autoconfigure.unleash.UnleashProperties.UNLEASH_PREFIX;
 
 /**
+ * Spring properties for {@link io.getunleash.util.UnleashConfig}
+ *
  * @author Ivan Rodriguez
  */
 @ConfigurationProperties(prefix = UNLEASH_PREFIX)
@@ -46,7 +37,7 @@ public class UnleashProperties {
 
 	private final String appName;
 
-	private final String environment;
+	private final String environment = "default";
 
 	private final String instanceId;
 
@@ -56,52 +47,28 @@ public class UnleashProperties {
 
 	private final String clientSpecificationVersion;
 
-	@Nullable
 	private final String projectName;
 
-	@Nullable
 	private final String namePrefix;
 
-	private final long fetchTogglesInterval;
+	private final long fetchTogglesInterval = 10;
 
-	private final Duration fetchTogglesConnectTimeout;
+	private final Duration fetchTogglesConnectTimeout = Duration.ofSeconds(10);
 
-	private final Duration fetchTogglesReadTimeout;
+	private final Duration fetchTogglesReadTimeout = Duration.ofSeconds(10);
 
 	private final boolean disablePolling;
 
-	private final long sendMetricsInterval;
+	private final long sendMetricsInterval = 60;
 
-	private final Duration sendMetricsConnectTimeout;
+	private final Duration sendMetricsConnectTimeout = Duration.ofSeconds(10);
 
-	private final Duration sendMetricsReadTimeout;
+	private final Duration sendMetricsReadTimeout = Duration.ofSeconds(10);
 
 	private final boolean disableMetrics;
 
 	private final boolean isProxyAuthenticationByJvmProperties;
 
-	private final UnleashFeatureFetcherFactory unleashFeatureFetcherFactory;
-
-	private final MetricSenderFactory metricSenderFactory;
-
-	private final UnleashContextProvider contextProvider;
-
 	private final boolean synchronousFetchOnInitialisation;
-
-	private final UnleashScheduledExecutor unleashScheduledExecutor;
-
-	private final UnleashSubscriber unleashSubscriber;
-
-	@Nullable
-	private final Strategy fallbackStrategy;
-
-	@Nullable
-	private final ToggleBootstrapProvider toggleBootstrapProvider;
-
-	@Nullable
-	private final Proxy proxy;
-
-	@Nullable
-	private final Consumer<UnleashException> startupExceptionHandler;
 
 }

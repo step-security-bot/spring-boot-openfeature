@@ -47,6 +47,10 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
             <groupId>dev.openfeature</groupId>
             <artifactId>sdk</artifactId>
             <version>${sdk.version}</version>
@@ -67,12 +71,22 @@
             <groupId>dev.openfeature.contrib.providers</groupId>
             <artifactId>unleash</artifactId>
             <version>${unleash.version}</version>
+            <optional>true</optional>
             <exclusions>
+                <exclusion>
+                    <groupId>io.getunleash</groupId>
+                    <artifactId>unleash-client-java</artifactId>
+                </exclusion>
                 <exclusion>
                     <groupId>org.slf4j</groupId>
                     <artifactId>slf4j-api</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>io.getunleash</groupId>
+            <artifactId>unleash-client-java</artifactId>
+            <version>${unleash-client-java.version}</version>
             <optional>true</optional>
         </dependency>
         <dependency>
@@ -88,6 +102,12 @@
             <optional>true</optional>
         </dependency>
         <dependency>
+            <groupId>dev.openfeature.contrib.providers</groupId>
+            <artifactId>multiprovider</artifactId>
+            <version>${multiprovider.version}</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
@@ -98,7 +118,6 @@
             <version>4.12.0</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
     <build>
         <plugins>

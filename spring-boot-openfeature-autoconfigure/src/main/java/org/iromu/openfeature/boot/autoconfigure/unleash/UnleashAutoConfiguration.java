@@ -4,7 +4,7 @@ import dev.openfeature.contrib.providers.unleash.UnleashProvider;
 import dev.openfeature.contrib.providers.unleash.UnleashProviderConfig;
 import dev.openfeature.sdk.FeatureProvider;
 import io.getunleash.util.UnleashConfig;
-import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.iromu.openfeature.boot.autoconfigure.ClientAutoConfiguration;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
@@ -14,6 +14,8 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+
+import java.io.IOException;
 
 import static org.iromu.openfeature.boot.autoconfigure.unleash.UnleashProperties.UNLEASH_PREFIX;
 
@@ -25,9 +27,9 @@ import static org.iromu.openfeature.boot.autoconfigure.unleash.UnleashProperties
 @ConditionalOnClass({ UnleashProvider.class })
 @ConditionalOnProperty(prefix = UNLEASH_PREFIX, name = "enabled", havingValue = "true", matchIfMissing = true)
 @EnableConfigurationProperties(UnleashProperties.class)
+@Slf4j
 public class UnleashAutoConfiguration {
 
-	@SneakyThrows
 	@Bean
 	@ConditionalOnMissingBean
 	public UnleashProviderConfig unleashProviderConfig(ObjectProvider<UnleashCustomizer> customizers,
@@ -41,8 +43,13 @@ public class UnleashAutoConfiguration {
 		}
 
 		if (unleashProperties.getBackupFile() != null) {
-			// NOTE: Unleash uses FileWriter
-			unleashConfigBuilder.backupFile(unleashProperties.getBackupFile().getFile().getAbsolutePath());
+			try {
+				// NOTE: Unleash uses FileWriter
+				unleashConfigBuilder.backupFile(unleashProperties.getBackupFile().getFile().getAbsolutePath());
+			}
+			catch (IOException e) {
+				log.error(e.getMessage(), e);
+			}
 		}
 
 		customizers.orderedStream().forEach((customizer) -> customizer.customize(unleashConfigBuilder));
