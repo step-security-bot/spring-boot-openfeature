@@ -9,6 +9,12 @@
     <file url="file://$PROJECT_DIR$/spring-boot-openfeature-autoconfigure/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-boot-openfeature-dependencies/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-boot-openfeature-dependencies/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-boot-starter-openfeature-envvar/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-boot-starter-openfeature-envvar/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-boot-starter-openfeature-jsonlogic/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-boot-starter-openfeature-jsonlogic/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-boot-starter-openfeature-multiprovider/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-boot-starter-openfeature-multiprovider/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-boot-starter-openfeature-unleash/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-boot-starter-openfeature-unleash/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-boot-starter-openfeature/src/main/java" charset="UTF-8" />
