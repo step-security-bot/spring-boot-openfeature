@@ -3,6 +3,7 @@ package org.iromu.openfeature.boot.autoconfigure.unleash;
 import dev.openfeature.contrib.providers.unleash.UnleashProviderConfig;
 import dev.openfeature.sdk.Client;
 import dev.openfeature.sdk.FeatureProvider;
+import io.getunleash.UnleashContext;
 import io.getunleash.strategy.Strategy;
 import io.getunleash.util.UnleashConfig;
 import okhttp3.mockwebserver.Dispatcher;
@@ -129,9 +130,10 @@ class UnleashAutoConfigurationTest {
 				}
 
 				@Override
-				public boolean isEnabled(Map<String, String> map) {
-					return false;
+				public boolean isEnabled(Map<String, String> parameters, UnleashContext context) {
+					return true;
 				}
+
 			});
 		}
 
