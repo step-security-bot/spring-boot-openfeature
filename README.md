@@ -1,6 +1,8 @@
 # Spring Starter OpenFeature
 [![Apache License 2](https://img.shields.io/badge/license-ASF2-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0.txt)
 ![Build Status](https://github.com/iromu/spring-boot-openfeature/actions/workflows/snapshots.yml/badge.svg?branch=main)
+![Coveralls](https://img.shields.io/coverallsCoverage/github/iromu/spring-boot-openfeature)
+
 
 
 This is a Spring Boot starter that integrates [OpenFeature](https://openfeature.dev/), an open standard for feature flag management.
