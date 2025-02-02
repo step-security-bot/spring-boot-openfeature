@@ -3,6 +3,8 @@ package org.iromu.openfeature.boot.autoconfigure.unleash;
 import dev.openfeature.contrib.providers.unleash.UnleashProviderConfig;
 import dev.openfeature.sdk.Client;
 import dev.openfeature.sdk.FeatureProvider;
+import io.getunleash.strategy.Strategy;
+import io.getunleash.util.UnleashConfig;
 import okhttp3.mockwebserver.Dispatcher;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
@@ -13,9 +15,14 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.iromu.openfeature.boot.autoconfigure.unleash.UnleashProperties.UNLEASH_PREFIX;
@@ -77,6 +84,57 @@ class UnleashAutoConfigurationTest {
 			Set<String> paths = Set.of(mockWebServer.takeRequest().getPath(), mockWebServer.takeRequest().getPath());
 			assertThat(paths).containsExactlyInAnyOrder("/api/client/features", "/api/client/register");
 		});
+	}
+
+	@Test
+	void shouldConfigureUnleashWithCustomizer() {
+		this.contextRunner.withUserConfiguration(CustomizerConfiguration.class)
+			.withPropertyValues(requiredProperties)
+			.run((context) -> {
+				UnleashProviderConfig unleashProviderConfig = context.getBean(UnleashProviderConfig.class);
+				UnleashConfig unleashConfig = unleashProviderConfig.getUnleashConfigBuilder().build();
+
+				assertThat(unleashConfig).extracting("fallbackStrategy")
+					.hasFieldOrPropertyWithValue("name", "a_fallback_for Foo");
+			});
+	}
+
+	@Test
+	void shouldConfigureUnleashWithToken() {
+		this.contextRunner.withPropertyValues(add(requiredProperties, UNLEASH_PREFIX + ".unleashToken=token"))
+			.run((context) -> {
+				UnleashProviderConfig unleashProviderConfig = context.getBean(UnleashProviderConfig.class);
+				UnleashConfig unleashConfig = unleashProviderConfig.getUnleashConfigBuilder().build();
+
+				assertThat(unleashConfig).extracting("customHttpHeaders")
+					.hasFieldOrPropertyWithValue("Authorization", "token");
+			});
+	}
+
+	private String[] add(String[] array, String element) {
+		return Stream.concat(Arrays.stream(array), Stream.of(element)).toArray(String[]::new);
+	}
+
+	@Configuration(proxyBeanMethods = false)
+	static class CustomizerConfiguration {
+
+		@Bean
+		public UnleashCustomizer unleashFallbackCustomizer(
+				@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection") UnleashProperties properties) {
+			return builder -> builder.fallbackStrategy(new Strategy() {
+
+				@Override
+				public String getName() {
+					return "a_fallback_for " + properties.getAppName();
+				}
+
+				@Override
+				public boolean isEnabled(Map<String, String> map) {
+					return false;
+				}
+			});
+		}
+
 	}
 
 }
