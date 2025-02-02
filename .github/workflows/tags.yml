@@ -1,6 +1,7 @@
 name: Builds Tags
 
 on:
+  workflow_dispatch:
   push:
     tags:
       - 'v*'
