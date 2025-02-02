@@ -1,4 +1,4 @@
-name: Build Snapshots
+name: main
 
 on:
   push:
@@ -22,7 +22,7 @@ jobs:
 
       - name: Build with Maven
         run: |
-          mvn -B --no-transfer-progress clean verify jacoco:report
+          ./mvnw -B --no-transfer-progress clean verify jacoco:report
 
       - name: Coveralls
         uses: coverallsapp/github-action@v2
