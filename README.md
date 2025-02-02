@@ -2,6 +2,7 @@
 [![Apache License 2](https://img.shields.io/badge/license-ASF2-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0.txt)
 ![Build Status](https://github.com/iromu/spring-boot-openfeature/actions/workflows/snapshots.yml/badge.svg?branch=main)
 [![Coverage Status](https://coveralls.io/repos/github/iromu/spring-boot-openfeature/badge.svg?branch=main)](https://coveralls.io/github/iromu/spring-boot-openfeature?branch=main)
+[![Maven Central](https://img.shields.io/maven-central/v/org.iromu.openfeature/spring-boot-openfeature)](https://mvnrepository.com/artifact/org.iromu.openfeature/spring-boot-openfeature)
 
 
 
