@@ -16,6 +16,8 @@ import org.springframework.context.annotation.Bean;
 import static org.iromu.openfeature.boot.autoconfigure.envvar.EnvVarProperties.ENVVAR_PREFIX;
 
 /**
+ * Autoconfiguration for {@link EnvVarProvider}.
+ *
  * @author Ivan Rodriguez
  */
 @AutoConfiguration

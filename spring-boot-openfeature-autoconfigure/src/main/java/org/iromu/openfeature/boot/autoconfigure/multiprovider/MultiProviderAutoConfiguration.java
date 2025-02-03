@@ -17,6 +17,8 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean;
 
 /**
+ * Autoconfiguration for {@link MultiProvider}.
+ *
  * @author Ivan Rodriguez
  */
 @AutoConfiguration

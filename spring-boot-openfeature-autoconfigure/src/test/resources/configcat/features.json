@@ -1,0 +1,199 @@
+{
+  "p": {
+    "s": "80xCU/SlDz1lCiWFaxIBjyJeJecWjq46T4eu6GtozkM="
+  },
+  "f": {
+    "enabledFeature": {
+      "t": 0,
+      "v": {
+        "b": true
+      }
+    },
+    "intSetting": {
+      "t": 2,
+      "v": {
+        "i": 5
+      }
+    },
+    "doubleSetting": {
+      "t": 3,
+      "v": {
+        "d": 3.14
+      }
+    },
+    "stringSetting": {
+      "t": 1,
+      "v": {
+        "s": "test"
+      }
+    },
+    "userIdMatching": {
+      "t": 0,
+      "r": [
+        {
+          "c": [
+            {
+              "u": {
+                "a": "Identifier",
+                "c": 2,
+                "l": [
+                  "@matching.com"
+                ]
+              }
+            }
+          ],
+          "s": {
+            "v": {
+              "b": true
+            },
+            "i": "bcfb84a7"
+          }
+        }
+      ],
+      "v": {
+        "b": false
+      },
+      "i": "430bded3"
+    },
+    "emailMatching": {
+      "t": 0,
+      "r": [
+        {
+          "c": [
+            {
+              "u": {
+                "a": "Email",
+                "c": 2,
+                "l": [
+                  "@matching.com"
+                ]
+              }
+            }
+          ],
+          "s": {
+            "v": {
+              "b": true
+            },
+            "i": "bcfb84a7"
+          }
+        }
+      ],
+      "v": {
+        "b": false
+      },
+      "i": "430bded3"
+    },
+    "countryMatching": {
+      "t": 0,
+      "r": [
+        {
+          "c": [
+            {
+              "u": {
+                "a": "Country",
+                "c": 2,
+                "l": [
+                  "country1"
+                ]
+              }
+            }
+          ],
+          "s": {
+            "v": {
+              "b": true
+            },
+            "i": "bcfb84a7"
+          }
+        }
+      ],
+      "v": {
+        "b": false
+      },
+      "i": "430bded3"
+    },
+    "userIdMatchingInt": {
+      "t": 2,
+      "r": [
+        {
+          "c": [
+            {
+              "u": {
+                "a": "Identifier",
+                "c": 2,
+                "l": [
+                  "@matching.com"
+                ]
+              }
+            }
+          ],
+          "s": {
+            "v": {
+              "i": 123
+            },
+            "i": "bcfb84a7"
+          }
+        }
+      ],
+      "v": {
+        "i": 111
+      },
+      "i": "430bded3"
+    },
+    "userIdMatchingDouble": {
+      "t": 3,
+      "r": [
+        {
+          "c": [
+            {
+              "u": {
+                "a": "Identifier",
+                "c": 2,
+                "l": [
+                  "@matching.com"
+                ]
+              }
+            }
+          ],
+          "s": {
+            "v": {
+              "d": 1.23
+            },
+            "i": "bcfb84a7"
+          }
+        }
+      ],
+      "v": {
+        "d": 0.1
+      },
+      "i": "430bded3"
+    },
+    "userIdMatchingStr": {
+      "t": 1,
+      "r": [
+        {
+          "c": [
+            {
+              "u": {
+                "a": "Identifier",
+                "c": 2,
+                "l": [
+                  "@matching.com"
+                ]
+              }
+            }
+          ],
+          "s": {
+            "v": {
+              "s": "expected"
+            },
+            "i": "bcfb84a7"
+          }
+        }
+      ],
+      "v": {
+        "s": "fallback"
+      },
+      "i": "430bded3"
+    }
+  }
+}

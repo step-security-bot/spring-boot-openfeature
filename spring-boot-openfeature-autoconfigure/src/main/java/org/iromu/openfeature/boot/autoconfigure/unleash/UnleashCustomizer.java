@@ -7,7 +7,6 @@ import io.getunleash.util.UnleashConfig;
  * {@link UnleashConfig.Builder}.
  *
  * @author Ivan Rodriguez
- * @since 1.1.2
  */
 @FunctionalInterface
 public interface UnleashCustomizer {

@@ -20,6 +20,8 @@ import java.io.IOException;
 import static org.iromu.openfeature.boot.autoconfigure.unleash.UnleashProperties.UNLEASH_PREFIX;
 
 /**
+ * Autoconfiguration for {@link UnleashProvider}.
+ *
  * @author Ivan Rodriguez
  */
 @AutoConfiguration
