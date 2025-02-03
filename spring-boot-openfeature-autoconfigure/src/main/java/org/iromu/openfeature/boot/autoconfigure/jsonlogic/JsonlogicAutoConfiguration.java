@@ -21,6 +21,8 @@ import javax.annotation.Nullable;
 import static org.iromu.openfeature.boot.autoconfigure.jsonlogic.JsonlogicProperties.JSONLOGIC_PREFIX;
 
 /**
+ * Autoconfiguration for {@link JsonlogicProvider}.
+ *
  * @author Ivan Rodriguez
  */
 @AutoConfiguration
