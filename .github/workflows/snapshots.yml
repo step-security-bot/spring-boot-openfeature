@@ -5,7 +5,7 @@ on:
     branches:
       - main
 
-permissions: read
+permissions: read-all
 
 jobs:
   build:
