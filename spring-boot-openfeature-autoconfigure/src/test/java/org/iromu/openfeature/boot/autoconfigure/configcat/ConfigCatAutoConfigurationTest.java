@@ -24,21 +24,19 @@ class ConfigCatAutoConfigurationTest {
 		this.contextRunner
 			.withPropertyValues(CONFIGCAT_PREFIX + ".sdk-key=dummy",
 					CONFIGCAT_PREFIX + ".filename=classpath:/configcat/features.json")
-			.run((context) -> {
-				assertThat(context).hasSingleBean(ConfigCatProviderConfig.class)
-					.hasBean("configCatProviderConfig")
-					.hasSingleBean(FeatureProvider.class)
-					.hasBean("configCatProvider")
-					.hasSingleBean(Client.class)
-					.hasBean("client");
-			});
+			.run((context) -> assertThat(context).hasSingleBean(ConfigCatProviderConfig.class)
+				.hasBean("configCatProviderConfig")
+				.hasSingleBean(FeatureProvider.class)
+				.hasBean("configCatProvider")
+				.hasSingleBean(Client.class)
+				.hasBean("client"));
 	}
 
 	@Test
 	void shouldUseFileRules() {
-		this.contextRunner.withPropertyValues(REQUIRED).run((context) -> {
-			assertThat(context.getBean(Client.class).getBooleanValue("enabledFeature", false)).isTrue();
-		});
+		this.contextRunner.withPropertyValues(REQUIRED)
+			.run((context) -> assertThat(context.getBean(Client.class).getBooleanValue("enabledFeature", false))
+				.isTrue());
 	}
 
 }

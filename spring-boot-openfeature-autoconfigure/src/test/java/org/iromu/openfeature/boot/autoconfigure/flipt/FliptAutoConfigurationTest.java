@@ -20,6 +20,7 @@ import java.io.IOException;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.iromu.openfeature.boot.autoconfigure.flipt.FliptProperties.FLIPT_PREFIX;
 
+@SuppressWarnings("NullableProblems")
 class FliptAutoConfigurationTest {
 
 	public static final String TARGETING_KEY = "targeting_key";
@@ -55,14 +56,12 @@ class FliptAutoConfigurationTest {
 
 	@Test
 	void shouldSupplyDefaultBeans() {
-		this.contextRunner.run((context) -> {
-			assertThat(context).hasSingleBean(FliptProviderConfig.class)
-				.hasBean("fliptProviderConfig")
-				.hasSingleBean(FeatureProvider.class)
-				.hasBean("fliptProvider")
-				.hasSingleBean(Client.class)
-				.hasBean("client");
-		});
+		this.contextRunner.run((context) -> assertThat(context).hasSingleBean(FliptProviderConfig.class)
+			.hasBean("fliptProviderConfig")
+			.hasSingleBean(FeatureProvider.class)
+			.hasBean("fliptProvider")
+			.hasSingleBean(Client.class)
+			.hasBean("client"));
 	}
 
 	@Test

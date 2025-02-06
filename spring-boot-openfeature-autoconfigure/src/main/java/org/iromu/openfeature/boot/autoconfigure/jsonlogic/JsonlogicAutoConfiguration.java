@@ -1,4 +1,22 @@
+/*
+ * Copyright 2025-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package org.iromu.openfeature.boot.autoconfigure.jsonlogic;
+
+import javax.annotation.Nullable;
 
 import dev.openfeature.contrib.providers.jsonlogic.FileBasedFetcher;
 import dev.openfeature.contrib.providers.jsonlogic.JsonlogicProvider;
@@ -9,6 +27,7 @@ import io.github.jamsesso.jsonlogic.JsonLogic;
 import lombok.SneakyThrows;
 import org.iromu.openfeature.boot.autoconfigure.ClientAutoConfiguration;
 import org.iromu.openfeature.boot.autoconfigure.multiprovider.MultiProviderAutoConfiguration;
+
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -16,10 +35,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-
-import javax.annotation.Nullable;
-
-import static org.iromu.openfeature.boot.autoconfigure.jsonlogic.JsonlogicProperties.JSONLOGIC_PREFIX;
 
 /**
  * Autoconfiguration for {@link JsonlogicProvider}.
@@ -29,7 +44,8 @@ import static org.iromu.openfeature.boot.autoconfigure.jsonlogic.JsonlogicProper
 @AutoConfiguration
 @AutoConfigureBefore({ ClientAutoConfiguration.class, MultiProviderAutoConfiguration.class })
 @ConditionalOnClass({ JsonlogicProvider.class })
-@ConditionalOnProperty(prefix = JSONLOGIC_PREFIX, name = "enabled", havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(prefix = JsonlogicProperties.JSONLOGIC_PREFIX, name = "enabled", havingValue = "true",
+		matchIfMissing = true)
 @EnableConfigurationProperties(JsonlogicProperties.class)
 public class JsonlogicAutoConfiguration {
 
@@ -41,14 +57,14 @@ public class JsonlogicAutoConfiguration {
 
 	@SneakyThrows
 	@Bean
-	@ConditionalOnProperty(prefix = JSONLOGIC_PREFIX, name = "filename")
+	@ConditionalOnProperty(prefix = JsonlogicProperties.JSONLOGIC_PREFIX, name = "filename")
 	@ConditionalOnMissingBean
 	public RuleFetcher fileBasedFetcher(JsonlogicProperties properties) {
 		return new FileBasedFetcher(properties.getFilename().getURI());
 	}
 
 	@Bean
-	@ConditionalOnProperty(prefix = JSONLOGIC_PREFIX, name = "filename", matchIfMissing = true)
+	@ConditionalOnProperty(prefix = JsonlogicProperties.JSONLOGIC_PREFIX, name = "filename", matchIfMissing = true)
 	@ConditionalOnMissingBean
 	public RuleFetcher noopFetcher() {
 		return new RuleFetcher() {
