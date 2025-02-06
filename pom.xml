@@ -43,6 +43,7 @@
         <module>spring-boot-starter-openfeature-multiprovider</module>
         <module>spring-boot-starter-openfeature-jsonlogic</module>
         <module>spring-boot-starter-openfeature-configcat</module>
+        <module>spring-boot-starter-openfeature-flipt</module>
     </modules>
 
     <properties>
@@ -63,6 +64,7 @@
         <multiprovider.version>0.0.1</multiprovider.version>
         <jsonlogic-eval-provider.version>1.1.1</jsonlogic-eval-provider.version>
         <configcat.version>0.1.0</configcat.version>
+        <flipt.version>0.1.1</flipt.version>
     </properties>
 
     <build>
