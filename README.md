@@ -5,7 +5,7 @@
 [![Maven Central](https://img.shields.io/maven-central/v/org.iromu.openfeature/spring-boot-openfeature)](https://repo1.maven.org/maven2/org/iromu/openfeature/)
 ![GitHub Tag](https://img.shields.io/github/v/tag/iromu/spring-boot-openfeature)
 [![Maven metadata URL](https://img.shields.io/maven-metadata/v?metadataUrl=https%3A%2F%2Fcentral.sonatype.com%2Frepository%2Fmaven-snapshots%2Forg%2Firomu%2Fopenfeature%2Fspring-boot-openfeature%2Fmaven-metadata.xml&label=snapshot)](https://central.sonatype.com/service/rest/repository/browse/maven-snapshots/org/iromu/openfeature/)
-
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/iromu/spring-boot-openfeature/badge)](https://securityscorecards.dev/viewer/?uri=github.com/iromu/spring-boot-openfeature)
 
 
 This is a Spring Boot starter that integrates [OpenFeature](https://openfeature.dev/), an open standard for feature flag management.

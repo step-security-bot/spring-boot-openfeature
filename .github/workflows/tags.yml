@@ -6,6 +6,8 @@ on:
     tags:
       - 'v*'
 
+permissions: read
+
 jobs:
 
   publish:
