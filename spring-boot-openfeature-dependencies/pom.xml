@@ -55,6 +55,11 @@
                 <artifactId>configcat</artifactId>
                 <version>${configcat.version}</version>
             </dependency>
+            <dependency>
+                <groupId>dev.openfeature.contrib.providers</groupId>
+                <artifactId>flipt</artifactId>
+                <version>${flipt.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <build>
