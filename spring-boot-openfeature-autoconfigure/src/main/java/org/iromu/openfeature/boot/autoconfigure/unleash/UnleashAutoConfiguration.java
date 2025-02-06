@@ -6,6 +6,7 @@ import dev.openfeature.sdk.FeatureProvider;
 import io.getunleash.util.UnleashConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.iromu.openfeature.boot.autoconfigure.ClientAutoConfiguration;
+import org.iromu.openfeature.boot.autoconfigure.multiprovider.MultiProviderAutoConfiguration;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
@@ -25,7 +26,7 @@ import static org.iromu.openfeature.boot.autoconfigure.unleash.UnleashProperties
  * @author Ivan Rodriguez
  */
 @AutoConfiguration
-@AutoConfigureBefore(ClientAutoConfiguration.class)
+@AutoConfigureBefore({ ClientAutoConfiguration.class, MultiProviderAutoConfiguration.class })
 @ConditionalOnClass({ UnleashProvider.class })
 @ConditionalOnProperty(prefix = UNLEASH_PREFIX, name = "enabled", havingValue = "true", matchIfMissing = true)
 @EnableConfigurationProperties(UnleashProperties.class)

@@ -8,6 +8,7 @@ import dev.openfeature.sdk.FeatureProvider;
 import io.github.jamsesso.jsonlogic.JsonLogic;
 import lombok.SneakyThrows;
 import org.iromu.openfeature.boot.autoconfigure.ClientAutoConfiguration;
+import org.iromu.openfeature.boot.autoconfigure.multiprovider.MultiProviderAutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -26,7 +27,7 @@ import static org.iromu.openfeature.boot.autoconfigure.jsonlogic.JsonlogicProper
  * @author Ivan Rodriguez
  */
 @AutoConfiguration
-@AutoConfigureBefore(ClientAutoConfiguration.class)
+@AutoConfigureBefore({ ClientAutoConfiguration.class, MultiProviderAutoConfiguration.class })
 @ConditionalOnClass({ JsonlogicProvider.class })
 @ConditionalOnProperty(prefix = JSONLOGIC_PREFIX, name = "enabled", havingValue = "true", matchIfMissing = true)
 @EnableConfigurationProperties(JsonlogicProperties.class)

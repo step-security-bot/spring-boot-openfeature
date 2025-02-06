@@ -23,7 +23,6 @@ import org.springframework.context.annotation.Bean;
  */
 @AutoConfiguration
 @AutoConfigureBefore(ClientAutoConfiguration.class)
-@AutoConfigureAfter(FeatureProvider.class)
 @ConditionalOnClass(MultiProvider.class)
 public class MultiProviderAutoConfiguration {
 

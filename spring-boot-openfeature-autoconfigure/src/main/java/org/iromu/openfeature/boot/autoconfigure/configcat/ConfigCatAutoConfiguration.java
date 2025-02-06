@@ -7,6 +7,7 @@ import dev.openfeature.contrib.providers.configcat.ConfigCatProviderConfig;
 import dev.openfeature.sdk.FeatureProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.iromu.openfeature.boot.autoconfigure.ClientAutoConfiguration;
+import org.iromu.openfeature.boot.autoconfigure.multiprovider.MultiProviderAutoConfiguration;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
@@ -29,7 +30,7 @@ import static org.iromu.openfeature.boot.autoconfigure.configcat.ConfigCatProper
  * @author Ivan Rodriguez
  */
 @AutoConfiguration
-@AutoConfigureBefore(ClientAutoConfiguration.class)
+@AutoConfigureBefore({ ClientAutoConfiguration.class, MultiProviderAutoConfiguration.class })
 @ConditionalOnClass({ ConfigCatProvider.class })
 @ConditionalOnProperty(prefix = CONFIGCAT_PREFIX, name = "enabled", havingValue = "true", matchIfMissing = true)
 @EnableConfigurationProperties(ConfigCatProperties.class)

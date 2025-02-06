@@ -5,6 +5,7 @@ import dev.openfeature.contrib.providers.envvar.EnvironmentGateway;
 import dev.openfeature.contrib.providers.envvar.EnvironmentKeyTransformer;
 import dev.openfeature.sdk.FeatureProvider;
 import org.iromu.openfeature.boot.autoconfigure.ClientAutoConfiguration;
+import org.iromu.openfeature.boot.autoconfigure.multiprovider.MultiProviderAutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -21,7 +22,7 @@ import static org.iromu.openfeature.boot.autoconfigure.envvar.EnvVarProperties.E
  * @author Ivan Rodriguez
  */
 @AutoConfiguration
-@AutoConfigureBefore(ClientAutoConfiguration.class)
+@AutoConfigureBefore({ ClientAutoConfiguration.class, MultiProviderAutoConfiguration.class })
 @ConditionalOnClass({ EnvVarProvider.class })
 @ConditionalOnProperty(prefix = ENVVAR_PREFIX, name = "enabled", havingValue = "true", matchIfMissing = true)
 @EnableConfigurationProperties(EnvVarProperties.class)
