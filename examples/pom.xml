@@ -21,7 +21,7 @@
     </modules>
 
     <properties>
-        <revision>0.0.6-SNAPSHOT</revision>
+        <revision>0.0.6</revision>
         <spring-boot-openfeature.version>${revision}</spring-boot-openfeature.version>
     </properties>
 
