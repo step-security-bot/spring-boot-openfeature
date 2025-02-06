@@ -33,6 +33,7 @@ import static org.iromu.openfeature.boot.autoconfigure.unleash.UnleashProperties
  *
  * @author Ivan Rodriguez
  */
+@SuppressWarnings({ "NullableProblems", "DataFlowIssue" })
 class UnleashAutoConfigurationTest {
 
 	private static MockWebServer mockWebServer;

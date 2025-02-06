@@ -1,4 +1,5 @@
 # Spring Starter OpenFeature
+
 [![Apache License 2](https://img.shields.io/badge/license-ASF2-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0.txt)
 ![Build Status](https://github.com/iromu/spring-boot-openfeature/actions/workflows/snapshots.yml/badge.svg?branch=main)
 [![Coverage Status](https://coveralls.io/repos/github/iromu/spring-boot-openfeature/badge.svg?branch=main)](https://coveralls.io/github/iromu/spring-boot-openfeature?branch=main)
@@ -7,8 +8,8 @@
 [![Maven metadata URL](https://img.shields.io/maven-metadata/v?metadataUrl=https%3A%2F%2Fcentral.sonatype.com%2Frepository%2Fmaven-snapshots%2Forg%2Firomu%2Fopenfeature%2Fspring-boot-openfeature%2Fmaven-metadata.xml&label=snapshot)](https://central.sonatype.com/service/rest/repository/browse/maven-snapshots/org/iromu/openfeature/)
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/iromu/spring-boot-openfeature/badge)](https://securityscorecards.dev/viewer/?uri=github.com/iromu/spring-boot-openfeature)
 
-
-This is a Spring Boot starter that integrates [OpenFeature](https://openfeature.dev/), an open standard for feature flag management.
+This is a Spring Boot starter that integrates [OpenFeature](https://openfeature.dev/), an open standard for feature flag
+management.
 
 ## Features
 
@@ -34,20 +35,21 @@ $ cd spring-boot-openfeature
 
 ### 2. Configure OpenFeature Provider
 
-OpenFeature allows you to integrate with a feature flag management provider. Update the configuration in `application.properties` or `application.yml`.
+OpenFeature allows you to integrate with a feature flag management provider. Update the configuration in
+`application.properties` or `application.yml`.
 
 For example, if you're using Unleash:
 
 ```properties
 spring:
-  openfeature:
-    unleash:
-      app-name: ${spring.application.name}
-      environment: development
-      unleash-api: http://unleash-instance:54242/api/
-      unleash-token: 'default:development.your-api-key'
-  application:
-    name: UnleashApplication
+openfeature:
+unleash:
+app-name:${spring.application.name}
+environment:development
+unleash-api:http://unleash-instance:54242/api/
+unleash-token:'default:development.your-api-key'
+application:
+name:UnleashApplication
 ```
 
 Refer to the provider's documentation for specific configuration details.
@@ -60,7 +62,6 @@ Using Maven:
 $ cd examples
 $ mvn clean package
 ```
-
 
 ### 4. Testing Feature Flags
 
@@ -93,7 +94,6 @@ public class FeatureController {
 
 Navigate to `/feature-status` to see the feature toggle in action.
 
-
 ## OpenFeature Providers
 
 OpenFeature supports multiple feature flag providers, including:
@@ -115,35 +115,39 @@ Key dependencies for this project:
 Add the OpenFeature SDK and provider dependencies to your `pom.xml` or `build.gradle`:
 
 **Maven**
+
 ```xml
-<dependencyManagement>
+<project>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.iromu.openfeature</groupId>
+                <artifactId>spring-boot-openfeature-dependencies</artifactId>
+                <version>${spring-boot-openfeature-dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <dependencies>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.iromu.openfeature</groupId>
-            <artifactId>spring-boot-openfeature-dependencies</artifactId>
-            <version>${spring-boot-openfeature-dependencies.version}</version>
-            <type>pom</type>
-            <scope>import</scope>
+            <artifactId>spring-boot-starter-openfeature</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>dev.openfeature.contrib.providers</groupId>
+            <artifactId>unleash</artifactId>
         </dependency>
     </dependencies>
-</dependencyManagement>
-<dependencies>
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-web</artifactId>
-    </dependency>
-    <dependency>
-        <groupId>org.iromu.openfeature</groupId>
-        <artifactId>spring-boot-starter-openfeature</artifactId>
-    </dependency>
-    <dependency>
-        <groupId>dev.openfeature.contrib.providers</groupId>
-        <artifactId>unleash</artifactId>
-    </dependency>
-</dependencies>
+</project>
 ```
 
 **Gradle**
+
 ```groovy
 dependencyManagement {
     imports {

@@ -1,4 +1,22 @@
+/*
+ * Copyright 2025-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package org.iromu.openfeature.boot.autoconfigure.configcat;
+
+import java.io.IOException;
 
 import com.configcat.OverrideBehaviour;
 import com.configcat.OverrideDataSourceBuilder;
@@ -8,6 +26,7 @@ import dev.openfeature.sdk.FeatureProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.iromu.openfeature.boot.autoconfigure.ClientAutoConfiguration;
 import org.iromu.openfeature.boot.autoconfigure.multiprovider.MultiProviderAutoConfiguration;
+
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
@@ -19,11 +38,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
-import java.io.IOException;
-
-import static com.configcat.OverrideDataSourceBuilder.classPathResource;
-import static org.iromu.openfeature.boot.autoconfigure.configcat.ConfigCatProperties.CONFIGCAT_PREFIX;
-
 /**
  * Autoconfiguration for {@link ConfigCatProvider}.
  *
@@ -32,7 +46,8 @@ import static org.iromu.openfeature.boot.autoconfigure.configcat.ConfigCatProper
 @AutoConfiguration
 @AutoConfigureBefore({ ClientAutoConfiguration.class, MultiProviderAutoConfiguration.class })
 @ConditionalOnClass({ ConfigCatProvider.class })
-@ConditionalOnProperty(prefix = CONFIGCAT_PREFIX, name = "enabled", havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(prefix = ConfigCatProperties.CONFIGCAT_PREFIX, name = "enabled", havingValue = "true",
+		matchIfMissing = true)
 @EnableConfigurationProperties(ConfigCatProperties.class)
 @Slf4j
 public class ConfigCatAutoConfiguration {
@@ -47,17 +62,18 @@ public class ConfigCatAutoConfiguration {
 		Resource filename = properties.getFilename();
 		if (filename != null) {
 			if (filename instanceof ClassPathResource) {
-				builder.options(options -> options.flagOverrides(
-						classPathResource(((ClassPathResource) filename).getPath()), OverrideBehaviour.LOCAL_ONLY));
+				builder.options((options) -> options.flagOverrides(
+						OverrideDataSourceBuilder.classPathResource(((ClassPathResource) filename).getPath()),
+						OverrideBehaviour.LOCAL_ONLY));
 			}
 			else {
-				builder.options(options -> {
+				builder.options((options) -> {
 					try {
 						options.flagOverrides(OverrideDataSourceBuilder.localFile(filename.getURI().getPath(), true),
 								OverrideBehaviour.LOCAL_ONLY);
 					}
-					catch (IOException e) {
-						log.error(e.getMessage(), e);
+					catch (IOException ex) {
+						log.error(ex.getMessage(), ex);
 					}
 				});
 			}
