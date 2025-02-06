@@ -106,7 +106,7 @@
                             <inherited>true</inherited>
                             <configuration>
                                 <configLocation>io/spring/javaformat/checkstyle/checkstyle.xml</configLocation>
-                                <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                                <includeTestSourceDirectory>false</includeTestSourceDirectory>
                             </configuration>
                             <goals>
                                 <goal>check</goal>
