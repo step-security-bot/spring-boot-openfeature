@@ -28,6 +28,9 @@ jobs:
 
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v4.2.1
+        args: >
+          -Dsonar.organization=iromu
+          -Dsonar.projectKey=iromu_spring-boot-openfeature
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
