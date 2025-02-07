@@ -22,13 +22,12 @@ jobs:
 
       - name: Build with Maven
         run: |
-          ./mvnw -B --no-transfer-progress clean verify jacoco:report org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+          ./mvnw -B --no-transfer-progress clean verify jacoco:report  \ 
+            org.sonarsource.scanner.maven:sonar-maven-plugin:sonar  \
+            -Dsonar.organization=iromu  \
+            -Dsonar.projectKey=iromu_spring-boot-openfeature
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-          args: >
-            -Dsonar.organization=iromu
-            -Dsonar.projectKey=iromu_spring-boot-openfeature
 
       - name: Coveralls
         uses: coverallsapp/github-action@648a8eb78e6d50909eff900e4ec85cab4524a45b # v2.3.6
