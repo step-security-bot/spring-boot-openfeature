@@ -44,7 +44,6 @@
         <module>spring-boot-starter-openfeature-jsonlogic</module>
         <module>spring-boot-starter-openfeature-configcat</module>
         <module>spring-boot-starter-openfeature-flipt</module>
-        <module>aggregate-report</module>
     </modules>
 
     <properties>
@@ -137,10 +136,6 @@
                 <version>2.18.0</version>
             </plugin>
             <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
                 <groupId>io.spring.javaformat</groupId>
                 <artifactId>spring-javaformat-maven-plugin</artifactId>
                 <version>${io.spring.javaformat.version}</version>
@@ -192,6 +187,12 @@
         </plugins>
     </build>
     <profiles>
+<!--        <profile>-->
+<!--            <id>sonar</id>-->
+<!--            <modules>-->
+<!--                <module>aggregate-report</module>-->
+<!--            </modules>-->
+<!--        </profile>-->
         <profile>
             <id>examples</id>
             <modules>

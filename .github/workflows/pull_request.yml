@@ -26,7 +26,7 @@ jobs:
           -Dsonar.organization=iromu \
           -Dsonar.projectKey=iromu_spring-boot-openfeature \
           clean verify \
-          org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+          org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -P sonar
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
@@ -34,3 +34,4 @@ jobs:
         uses: coverallsapp/github-action@648a8eb78e6d50909eff900e4ec85cab4524a45b # v2.3.6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          format: jacoco
