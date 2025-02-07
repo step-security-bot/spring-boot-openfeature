@@ -26,7 +26,7 @@ jobs:
           -Dsonar.organization=iromu \
           -Dsonar.projectKey=iromu_spring-boot-openfeature \
           clean verify \
-          org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+          org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -P sonar
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
