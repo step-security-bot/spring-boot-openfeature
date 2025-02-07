@@ -44,6 +44,7 @@
         <module>spring-boot-starter-openfeature-jsonlogic</module>
         <module>spring-boot-starter-openfeature-configcat</module>
         <module>spring-boot-starter-openfeature-flipt</module>
+        <module>aggregate-report</module>
     </modules>
 
     <properties>
@@ -76,10 +77,23 @@
                     <version>0.8.12</version>
                     <executions>
                         <execution>
-                            <id>prepare-agent</id>
                             <goals>
                                 <goal>prepare-agent</goal>
                             </goals>
+                        </execution>
+                        <execution>
+                            <id>report</id>
+                            <goals>
+                                <goal>report</goal>
+                            </goals>
+                            <phase>verify</phase>
+                            <configuration>
+                                <dataFile>${project.build.directory}/jacoco.exec
+                                </dataFile>
+                                <outputDirectory>
+                                    ${project.reporting.outputDirectory}/jacoco
+                                </outputDirectory>
+                            </configuration>
                         </execution>
                     </executions>
                 </plugin>
