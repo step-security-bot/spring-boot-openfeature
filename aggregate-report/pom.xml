@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.iromu.openfeature</groupId>
+    <artifactId>spring-boot-openfeature</artifactId>
+    <version>${revision}</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+
+  <artifactId>aggregate-report</artifactId>
+  <packaging>pom</packaging>
+
+  <properties>
+    <sonar.coverage.jacoco.xmlReportPaths>${basedir}/target/site/jacoco-aggregate/jacoco.xml
+    </sonar.coverage.jacoco.xmlReportPaths>
+  </properties>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.gmaven</groupId>
+        <artifactId>groovy-maven-plugin</artifactId>
+        <version>2.1.1</version>
+        <executions>
+          <execution>
+            <?m2e ignore?>
+            <id>patch-maven-dependencies</id>
+            <!-- must happen before jacoco -->
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>execute</goal>
+            </goals>
+            <configuration>
+              <source>
+                // add all modules to the dependencies to make Jacoco aggregate report work (without listing them manually)
+                // see https://github.com/jacoco/jacoco/issues/974
+                for (dependencyProject in session.getProjectDependencyGraph().getSortedProjects()) {
+                  def dependency = new org.apache.maven.model.Dependency()
+                  dependency.setGroupId(dependencyProject.getGroupId())
+                  dependency.setArtifactId(dependencyProject.getArtifactId())
+                  dependency.setVersion(dependencyProject.getVersion())
+                  dependency.setScope("compile")
+                  project.getDependencies().add(dependency)
+                }
+              </source>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>report-aggregate</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>report-aggregate</goal>
+            </goals>
+            <configuration>
+              <dataFileIncludes>
+                <dataFileInclude>**/jacoco.exec</dataFileInclude>
+              </dataFileIncludes>
+              <outputDirectory>${project.reporting.outputDirectory}/jacoco-aggregate</outputDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>
