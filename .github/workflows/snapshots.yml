@@ -27,7 +27,7 @@ jobs:
           ./mvnw -B --no-transfer-progress clean verify jacoco:report
 
       - name: SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@4.2.1
+        uses: SonarSource/sonarqube-scan-action@v4.2.1
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
