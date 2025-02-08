@@ -42,14 +42,14 @@ For example, if you're using Unleash:
 
 ```properties
 spring:
-openfeature:
-unleash:
-app-name:${spring.application.name}
-environment:development
-unleash-api:http://unleash-instance:54242/api/
-unleash-token:'default:development.your-api-key'
-application:
-name:UnleashApplication
+    openfeature:
+        unleash:
+            app-name:${spring.application.name}
+            environment:development
+            unleash-api:http://unleash-instance:54242/api/
+            unleash-token:'default:development.your-api-key'
+    application:
+        name:UnleashApplication
 ```
 
 Refer to the provider's documentation for specific configuration details.
@@ -118,17 +118,6 @@ Add the OpenFeature SDK and provider dependencies to your `pom.xml` or `build.gr
 
 ```xml
 <project>
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.iromu.openfeature</groupId>
-                <artifactId>spring-boot-openfeature-dependencies</artifactId>
-                <version>${spring-boot-openfeature-dependencies.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -136,11 +125,8 @@ Add the OpenFeature SDK and provider dependencies to your `pom.xml` or `build.gr
         </dependency>
         <dependency>
             <groupId>org.iromu.openfeature</groupId>
-            <artifactId>spring-boot-starter-openfeature</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>dev.openfeature.contrib.providers</groupId>
-            <artifactId>unleash</artifactId>
+            <artifactId>spring-boot-starter-openfeature-unleash</artifactId>
+            <version>${spring-boot-openfeature.version}</version>
         </dependency>
     </dependencies>
 </project>
