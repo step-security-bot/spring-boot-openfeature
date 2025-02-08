@@ -17,15 +17,23 @@
 package org.iromu.openfeature.boot.aop;
 
 import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 
 import dev.openfeature.sdk.Client;
+import dev.openfeature.sdk.ImmutableContext;
+import dev.openfeature.sdk.Value;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.apache.logging.log4j.util.Strings;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 
+import org.springframework.expression.ExpressionParser;
+import org.springframework.expression.spel.standard.SpelExpressionParser;
+import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.stereotype.Component;
 
 /**
@@ -59,6 +67,7 @@ public class ToggleOnFlagAspect {
 		// Retrieve method and class level annotations
 		MethodSignature signature = (MethodSignature) joinPoint.getSignature();
 		Method method = signature.getMethod();
+		Object[] args = joinPoint.getArgs();
 
 		ToggleOnFlag methodAnnotation = method.getAnnotation(ToggleOnFlag.class);
 		ToggleOnFlag classAnnotation = joinPoint.getTarget().getClass().getAnnotation(ToggleOnFlag.class);
@@ -68,7 +77,16 @@ public class ToggleOnFlagAspect {
 
 		if (toggleOnFlag != null) {
 			String key = toggleOnFlag.key();
-			boolean condition = evaluateCondition(key);
+			boolean condition;
+			// Parse SpEL expression for attributes
+			String spelAttributes = toggleOnFlag.attributes();
+			if (spelAttributes != null && !"{}".equals(spelAttributes)) {
+				Map<String, Value> resolvedAttributes = resolveAttributesSpEL(spelAttributes, method, args);
+				condition = evaluateCondition(key, resolvedAttributes);
+			}
+			else {
+				condition = evaluateCondition(key);
+			}
 
 			if (condition) {
 				// Execute the original method if the condition is true
@@ -88,12 +106,59 @@ public class ToggleOnFlagAspect {
 	}
 
 	/**
+	 * Resolves a SpEL expression to generate attributes map.
+	 * @param spelExpression the SpEL expression for attributes.
+	 * @param method the original method.
+	 * @param args the method arguments.
+	 * @return the resolved attributes as a Map.
+	 */
+	@SneakyThrows
+	@SuppressWarnings("unchecked")
+	private Map<String, Value> resolveAttributesSpEL(String spelExpression, Method method, Object[] args) {
+		ExpressionParser parser = new SpelExpressionParser();
+		StandardEvaluationContext context = new StandardEvaluationContext();
+
+		// Add method arguments to the SpEL context using parameter names
+		java.lang.reflect.Parameter[] parameters = method.getParameters();
+		for (int i = 0; i < parameters.length; i++) {
+			System.out.println("Adding to SpEL context: " + parameters[i].getName() + " = " + args[i]);
+			context.setVariable(parameters[i].getName(), args[i]);
+		}
+
+		// Parse and evaluate the SpEL expression into a Map
+		Object result = parser.parseExpression(spelExpression).getValue(context);
+
+		if (result instanceof Map) {
+			Map<String, Value> map = new HashMap<>();
+			for (Map.Entry<String, Object> entry : ((Map<String, Object>) result).entrySet()) {
+				if (map.put(entry.getKey(), new Value(entry.getValue())) != null) {
+					throw new IllegalStateException("Duplicate key");
+				}
+			}
+			return map;
+		}
+		else {
+			throw new IllegalArgumentException("SpEL expression did not resolve to a Map<String, Value>");
+		}
+	}
+
+	/**
 	 * Evaluates the condition based on the provided feature flag key.
 	 * @param key the key of the feature flag
 	 * @return {@code true} if the feature flag is enabled, {@code false} otherwise
 	 */
 	private boolean evaluateCondition(String key) {
 		return this.client.getBooleanValue(key, false);
+	}
+
+	/**
+	 * Evaluates the condition based on the provided feature flag key.
+	 * @param key the key of the feature flag
+	 * @param attributes evaluation context attributes
+	 * @return {@code true} if the feature flag is enabled, {@code false} otherwise
+	 */
+	private boolean evaluateCondition(String key, Map<String, Value> attributes) {
+		return this.client.getBooleanValue(key, false, new ImmutableContext(attributes));
 	}
 
 }

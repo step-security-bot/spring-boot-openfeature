@@ -22,7 +22,6 @@ import dev.openfeature.sdk.Client;
 import dev.openfeature.sdk.ImmutableContext;
 import dev.openfeature.sdk.Value;
 import org.iromu.openfeature.boot.aop.ToggleOnFlag;
-import org.iromu.openfeature.boot.autoconfigure.unleash.FakeUnleashProvider;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,20 +41,17 @@ public class UnleashController {
 
 	private final Client client;
 
-	private final FakeUnleashProvider fakeUnleashProvider;
+	private final MockedUnleashApiServer mockedUnleashApiServer;
 
-	public UnleashController(Client client, FakeUnleashProvider fakeUnleashProvider) {
+	public UnleashController(Client client, MockedUnleashApiServer mockedUnleashApiServer) {
 		this.client = client;
-		this.fakeUnleashProvider = fakeUnleashProvider;
-
-		// Init features
-		this.fakeUnleashProvider.enable("users-flag", "random-boolean-flag");
+		this.mockedUnleashApiServer = mockedUnleashApiServer;
 
 	}
 
 	@GetMapping("toggle")
 	public Boolean toggle(@RequestParam final String name) {
-		this.fakeUnleashProvider.toggle(name);
+		this.mockedUnleashApiServer.toggle(name);
 
 		return this.client.getBooleanValue(name, false);
 	}
@@ -70,15 +66,25 @@ public class UnleashController {
 		return this.client.getBooleanValue("users-flag", false, new ImmutableContext(Map.of("userId", new Value(id))));
 	}
 
+	@GetMapping("annotated/user/{id}")
+	@ToggleOnFlag(key = "users-flag", attributes = "{'userId': #id}", orElse = "featureOnUserIdDisabled")
+	public String featureOnUserIdAnnotated(@PathVariable("id") final String id) {
+		return "User allowed";
+	}
+
+	public String featureOnUserIdDisabled(final String id) {
+		return "uset not allowed";
+	}
+
 	@GetMapping("greet/{name}")
 	@ToggleOnFlag(key = "random-boolean-flag", orElse = "greetWhenDisabled")
 	public String greet(@PathVariable("name") final String name) {
-		this.fakeUnleashProvider.toggle("random-boolean-flag");
+		this.mockedUnleashApiServer.toggle("random-boolean-flag");
 		return "Hello " + name;
 	}
 
 	public String greetWhenDisabled(final String name) {
-		this.fakeUnleashProvider.toggle("random-boolean-flag");
+		this.mockedUnleashApiServer.toggle("random-boolean-flag");
 		return "HELLO " + name;
 	}
 

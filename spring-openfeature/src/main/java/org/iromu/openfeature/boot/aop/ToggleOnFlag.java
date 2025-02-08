@@ -46,6 +46,13 @@ public @interface ToggleOnFlag {
 	String key();
 
 	/**
+	 * A map of attributes to be dynamically populated. Supports SpEL expressions to
+	 * populate key-value pairs. e.g.: "{'userId': #arg0, 'role': 'admin'}"
+	 * @return SpEL expression
+	 */
+	String attributes() default "{}";
+
+	/**
 	 * The name of the fallback method to be executed if the condition evaluates to
 	 * {@code false}.
 	 * @return the name of the fallback method

@@ -92,6 +92,12 @@
       "stale": false
     },
     {
+      "name": "random-boolean-flag",
+      "type": "experiment",
+      "enabled": true,
+      "stale": false
+    },
+    {
       "name": "csv-flag",
       "type": "experiment",
       "enabled": true,

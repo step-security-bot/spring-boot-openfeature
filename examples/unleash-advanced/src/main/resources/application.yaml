@@ -1,0 +1,13 @@
+server.port: 9999
+spring:
+  openfeature:
+    unleash:
+      app-name: ${spring.application.name}
+      environment: development
+      unleash-api: http://localhost:54242/api/
+      unleash-token: 'default:development.mocked'
+      backup-file: 'classpath:META-INF/features.json'
+  application:
+    name: UnleashApplication
+
+logging.level.org.iromu: DEBUG

@@ -33,7 +33,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>unleash</module>
+        <module>unleash-advanced</module>
+        <module>unleash-simple</module>
     </modules>
 
     <properties>
