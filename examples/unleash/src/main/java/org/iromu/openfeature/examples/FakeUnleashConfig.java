@@ -16,39 +16,24 @@
 
 package org.iromu.openfeature.examples;
 
-import dev.openfeature.contrib.providers.unleash.UnleashProvider;
 import dev.openfeature.contrib.providers.unleash.UnleashProviderConfig;
 import dev.openfeature.sdk.FeatureProvider;
-import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
-import okhttp3.mockwebserver.MockWebServer;
+import org.iromu.openfeature.boot.autoconfigure.unleash.FakeUnleashProvider;
+import org.iromu.openfeature.boot.autoconfigure.unleash.UnleashAutoConfiguration;
 
+import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.DependsOn;
+import org.springframework.context.annotation.Primary;
 
-/**
- * Sample Configuration.
- *
- * @author Ivan Rodriguez
- */
 @Configuration
-@Slf4j
-public class UnleashConfiguration {
-
-	@SneakyThrows
-	@Bean
-	MockWebServer unleashApi() {
-		MockWebServer mockWebServer = new MockWebServer();
-		mockWebServer.start(54242);
-		return mockWebServer;
-	}
+@AutoConfigureBefore(UnleashAutoConfiguration.class)
+public class FakeUnleashConfig {
 
 	@Bean
-	@DependsOn("mockedUnleashApiServer")
-	public FeatureProvider unleashProvider(UnleashProviderConfig unleashProviderConfig) {
-		log.info("UnleashProvider init.");
-		return new UnleashProvider(unleashProviderConfig);
+	@Primary
+	public FeatureProvider fakeUnleashProvider(UnleashProviderConfig unleashProviderConfig) {
+		return new FakeUnleashProvider(unleashProviderConfig);
 	}
 
 }
