@@ -65,4 +65,14 @@ public class UnleashController {
 		return this.client.getBooleanValue("users-flag", false, new ImmutableContext(Map.of("userId", new Value(id))));
 	}
 
+	@GetMapping("greet/{name}")
+	@ToggleOnFlag(key = "users-flag", orElse = "fallbackAfterRetry")
+	public String greet(@PathVariable("name") final String name) {
+		return "Hello " + name;
+	}
+
+	public String fallbackAfterRetry(final String name) {
+		return "HELLO " + name;
+	}
+
 }
