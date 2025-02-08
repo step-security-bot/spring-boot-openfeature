@@ -6,7 +6,7 @@ spring:
       environment: development
       unleash-api: http://localhost:54242/api/
       unleash-token: 'default:development.mocked'
-      backup-file: 'classpath:META-INF/features.json'
+      backup-file: 'classpath:features.json'
   application:
     name: UnleashApplication
 

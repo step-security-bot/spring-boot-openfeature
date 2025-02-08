@@ -42,7 +42,8 @@ public class MockedUnleashApiServer {
 	@SneakyThrows
 	public MockedUnleashApiServer(MockWebServer mockWebServer, UnleashProperties properties,
 			ObjectMapper objectMapper) {
-		this.unleashBackFile = objectMapper.readValue(properties.getBackupFile().getFile(), UnleashBackFile.class);
+		this.unleashBackFile = objectMapper.readValue(properties.getBackupFile().getInputStream(),
+				UnleashBackFile.class);
 
 		mockWebServer.setDispatcher(new Dispatcher() {
 			@SneakyThrows

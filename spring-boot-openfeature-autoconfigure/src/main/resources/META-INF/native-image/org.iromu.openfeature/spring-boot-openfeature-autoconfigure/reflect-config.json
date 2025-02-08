@@ -1,0 +1,38 @@
+[
+  {
+    "name": "org.iromu.openfeature.boot.autoconfigure.unleash.UnleashBackFile",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "org.iromu.openfeature.boot.autoconfigure.unleash.UnleashBackFile$Feature",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "org.iromu.openfeature.boot.autoconfigure.unleash.UnleashBackFile$Feature$Strategy",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "org.iromu.openfeature.boot.autoconfigure.unleash.UnleashBackFile$Feature$Variant",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "org.iromu.openfeature.boot.autoconfigure.unleash.UnleashBackFile$Feature$Variant$Payload",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "org.iromu.openfeature.boot.autoconfigure.unleash.UnleashBackFile$Feature$Variant$Override",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  }
+]
