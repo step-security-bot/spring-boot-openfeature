@@ -127,6 +127,11 @@
                         </execution>
                     </executions>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.13.0</version>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
@@ -187,12 +192,6 @@
         </plugins>
     </build>
     <profiles>
-<!--        <profile>-->
-<!--            <id>sonar</id>-->
-<!--            <modules>-->
-<!--                <module>aggregate-report</module>-->
-<!--            </modules>-->
-<!--        </profile>-->
         <profile>
             <id>examples</id>
             <modules>
