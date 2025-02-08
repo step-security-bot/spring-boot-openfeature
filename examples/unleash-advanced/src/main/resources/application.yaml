@@ -1,4 +1,4 @@
-server.port: 8888
+server.port: 9999
 spring:
   openfeature:
     unleash:
@@ -9,3 +9,5 @@ spring:
       backup-file: 'classpath:META-INF/features.json'
   application:
     name: UnleashApplication
+
+logging.level.org.iromu: DEBUG

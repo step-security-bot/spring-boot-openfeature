@@ -1,0 +1,10 @@
+server.port: 8888
+spring:
+  openfeature:
+    unleash:
+      app-name: ${spring.application.name}
+      environment: development
+  application:
+    name: UnleashApplication
+
+logging.level.org.iromu: DEBUG

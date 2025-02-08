@@ -42,13 +42,13 @@ public class OpenFeatureAPIAutoConfiguration {
 	@Order(Ordered.HIGHEST_PRECEDENCE)
 	public OpenFeatureAPICustomizer loggerOpenFeatureAPICustomizer() {
 		return (openFeatureAPI) -> {
-			openFeatureAPI.onProviderReady((eventDetails) -> log.warn("{} ready", eventDetails.getProviderName()));
-			openFeatureAPI.onProviderError((eventDetails) -> log.warn("{} error", eventDetails.getProviderName()));
+			openFeatureAPI.onProviderReady((eventDetails) -> log.info("{} ready", eventDetails.getProviderName()));
+			openFeatureAPI.onProviderError((eventDetails) -> log.error("{} error", eventDetails.getProviderName()));
 			openFeatureAPI.onProviderStale((eventDetails) -> log.warn("{} stale", eventDetails.getProviderName()));
 			openFeatureAPI.onProviderConfigurationChanged((eventDetails) -> {
-				log.warn("{} configuration changed", eventDetails.getProviderName());
+				log.debug("{} configuration changed", eventDetails.getProviderName());
 				for (String flag : eventDetails.getFlagsChanged()) {
-					log.warn("CHANGE {} {}", flag, eventDetails.getEventMetadata().getString(flag));
+					log.debug("CHANGE {} {}", flag, eventDetails.getEventMetadata().getString(flag));
 				}
 			});
 		};

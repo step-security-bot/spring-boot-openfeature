@@ -16,33 +16,36 @@
 
 package org.iromu.openfeature.examples;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.mockwebserver.Dispatcher;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
+import org.iromu.openfeature.boot.autoconfigure.unleash.UnleashBackFile;
 import org.iromu.openfeature.boot.autoconfigure.unleash.UnleashProperties;
 
 import org.springframework.stereotype.Component;
-
-import java.io.IOException;
-import java.nio.file.Files;
 
 /**
  * Simulation for Unleash server.
  *
  * @author Ivan Rodriguez
  */
-@SuppressWarnings("NullableProblems")
 @Component
 @Slf4j
 public class MockedUnleashApiServer {
 
-	String features;
+	UnleashBackFile unleashBackFile;
 
-	public MockedUnleashApiServer(MockWebServer mockWebServer, UnleashProperties properties) throws IOException {
-		this.features = new String(Files.readAllBytes(properties.getBackupFile().getFile().toPath()));
+	@SneakyThrows
+	public MockedUnleashApiServer(MockWebServer mockWebServer, UnleashProperties properties,
+			ObjectMapper objectMapper) {
+		this.unleashBackFile = objectMapper.readValue(properties.getBackupFile().getFile(), UnleashBackFile.class);
+
 		mockWebServer.setDispatcher(new Dispatcher() {
+			@SneakyThrows
 			@Override
 			public MockResponse dispatch(RecordedRequest request) {
 				String path = request.getPath();
@@ -54,7 +57,7 @@ public class MockedUnleashApiServer {
 					return new MockResponse().setResponseCode(200);
 				}
 				else if ("/api/client/features".equals(path)) {
-					return new MockResponse().setBody(this.features)
+					return new MockResponse().setBody(objectMapper.writeValueAsString(unleashBackFile))
 						.addHeader("Content-Type", "application/json")
 						.setResponseCode(200);
 				}
@@ -67,8 +70,11 @@ public class MockedUnleashApiServer {
 		log.info("MockedUnleashApiServer init.");
 	}
 
-	public void toggle() {
-
+	public void toggle(String key) {
+		this.unleashBackFile.getFeatures()
+			.stream()
+			.filter((feature) -> key.equals(feature.getName()))
+			.forEach((feature) -> feature.setEnabled(!feature.isEnabled()));
 	}
 
 }

@@ -17,16 +17,14 @@
 package org.iromu.openfeature.examples;
 
 import dev.openfeature.sdk.Client;
-import dev.openfeature.sdk.ImmutableContext;
-import dev.openfeature.sdk.Value;
+import org.iromu.openfeature.boot.aop.ToggleOnFlag;
+import org.iromu.openfeature.boot.autoconfigure.unleash.FakeUnleashProvider;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Map;
 
 /**
  * Sample Controller.
@@ -39,19 +37,21 @@ public class UnleashController {
 
 	private final Client client;
 
-	private final MockedUnleashApiServer mockedUnleashApiServer;
+	private final FakeUnleashProvider fakeUnleashProvider;
 
-	public UnleashController(Client client, MockedUnleashApiServer mockedUnleashApiServer) {
+	public UnleashController(Client client, FakeUnleashProvider fakeUnleashProvider) {
 		this.client = client;
-		this.mockedUnleashApiServer = mockedUnleashApiServer;
+		this.fakeUnleashProvider = fakeUnleashProvider;
 
-		Boolean booleanValue = client.getBooleanValue("sample", false);
-		System.out.println(booleanValue);
+		// Init features
+		this.fakeUnleashProvider.getUnleash().enable("random-boolean-flag");
+
 	}
 
 	@GetMapping("toggle")
 	public Boolean toggle(@RequestParam final String name) {
-		this.mockedUnleashApiServer.toggle();
+		this.fakeUnleashProvider.toggle(name);
+
 		return this.client.getBooleanValue(name, false);
 	}
 
@@ -60,9 +60,16 @@ public class UnleashController {
 		return this.client.getBooleanValue(name, false);
 	}
 
-	@GetMapping("user/{id}")
-	public Boolean featureOnUserId(@PathVariable("id") final String id) {
-		return this.client.getBooleanValue("users-flag", false, new ImmutableContext(Map.of("userId", new Value(id))));
+	@GetMapping("greet/{name}")
+	@ToggleOnFlag(key = "random-boolean-flag", orElse = "greetWhenDisabled")
+	public String greet(@PathVariable("name") final String name) {
+		this.fakeUnleashProvider.toggle("random-boolean-flag");
+		return "Hello " + name;
+	}
+
+	public String greetWhenDisabled(final String name) {
+		this.fakeUnleashProvider.toggle("random-boolean-flag");
+		return "HELLO " + name;
 	}
 
 }

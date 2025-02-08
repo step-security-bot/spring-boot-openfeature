@@ -20,39 +20,44 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.iromu.openfeature</groupId>
-        <artifactId>spring-boot-openfeature</artifactId>
+        <groupId>org.iromu.openfeature.examples</groupId>
+        <artifactId>examples</artifactId>
         <version>${revision}</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>spring-boot-starter-openfeature-unleash</artifactId>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.iromu.openfeature</groupId>
-                <artifactId>spring-boot-openfeature-dependencies</artifactId>
-                <version>${revision}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+    <artifactId>unleash-simple</artifactId>
 
     <dependencies>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webflux-ui</artifactId>
+            <version>${sprindoc-openapi.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.iromu.openfeature</groupId>
-            <artifactId>spring-boot-openfeature-autoconfigure</artifactId>
-            <version>${revision}</version>
+            <artifactId>spring-boot-starter-openfeature-unleash</artifactId>
+            <version>${spring-boot-openfeature.version}</version>
         </dependency>
         <dependency>
-            <groupId>dev.openfeature.contrib.providers</groupId>
-            <artifactId>unleash</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.getunleash</groupId>
-            <artifactId>unleash-client-java</artifactId>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>

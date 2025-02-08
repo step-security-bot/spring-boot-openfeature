@@ -94,6 +94,43 @@ public class FeatureController {
 
 Navigate to `/feature-status` to see the feature toggle in action.
 
+
+
+### 5. Annotations
+
+With a strategy defined like:
+
+```json
+    {
+      "name": "users-flag",
+      "enabled": true,
+      "strategies": [
+        {
+          "name": "userWithId",
+          "parameters": {
+            "userIds": "111,234"
+          }
+        }
+      ]
+    }
+```
+
+```java
+@RestController
+public class UserController {
+
+    @GetMapping("annotated/user/{id}")
+    @ToggleOnFlag(key = "users-flag", attributes = "{'userId': #id}", orElse = "featureOnUserIdDisabled")
+    public String featureOnUserIdAnnotated(@PathVariable("id") final String id) {
+        return "User allowed";
+    }
+
+    public String featureOnUserIdDisabled(final String id) {
+        return "User not allowed";
+    }
+}
+```
+
 ## OpenFeature Providers
 
 OpenFeature supports multiple feature flag providers, including:
