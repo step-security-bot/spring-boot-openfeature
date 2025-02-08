@@ -67,7 +67,7 @@ public class UnleashAutoConfiguration {
 				unleashConfigBuilder.backupFile(unleashProperties.getBackupFile().getFile().getAbsolutePath());
 			}
 			catch (IOException ex) {
-				log.error(ex.getMessage(), ex);
+				log.error(ex.getMessage());
 			}
 		}
 
